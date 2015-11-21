@@ -288,12 +288,14 @@ public class SubscriptionController extends ISub.Stub {
                 SubscriptionManager.MNC));
         // FIXME: consider stick this into database too
         String countryIso = getSubscriptionCountryIso(id);
+        int userNwMode = cursor.getInt(cursor.getColumnIndexOrThrow(
+                SubscriptionManager.USER_NETWORK_MODE));
 
         if (DBG) {
             logd("[getSubInfoRecord] id:" + id + " iccid:" + iccId + " simSlotIndex:" + simSlotIndex
                 + " displayName:" + displayName + " nameSource:" + nameSource
                 + " iconTint:" + iconTint + " dataRoaming:" + dataRoaming
-                + " mcc:" + mcc + " mnc:" + mnc + " countIso:" + countryIso);
+                + " mcc:" + mcc + " mnc:" + mnc + " countIso:" + countryIso + " userNwMode:" + userNwMode);
         }
 
         // If line1number has been set to a different number, use it instead.
@@ -302,7 +304,7 @@ public class SubscriptionController extends ISub.Stub {
             number = line1Number;
         }
         return new SubscriptionInfo(id, iccId, simSlotIndex, displayName, carrierName,
-                nameSource, iconTint, number, dataRoaming, iconBitmap, mcc, mnc, countryIso);
+                nameSource, iconTint, number, dataRoaming, iconBitmap, mcc, mnc, countryIso, userNwMode);
     }
 
     /**
@@ -1751,6 +1753,34 @@ public class SubscriptionController extends ISub.Stub {
                 SubscriptionManager.UNIQUE_KEY_SUBSCRIPTION_ID +
                         "=" + Integer.toString(subId), null);
         Binder.restoreCallingIdentity(token);
+    }
+
+    @Override
+    public void activateSubId(int subId) {
+        loge("activateSubId: API not supported, subId = " + subId);
+    }
+
+    @Override
+    public void deactivateSubId(int subId) {
+        loge("deactivateSubId: API not supported, subId = " + subId);
+    }
+
+    @Override
+    public int setSubState(int subId, int subStatus) {
+        int result = 0;
+
+        loge("setSubState: API not supported, subId = " + subId + " subStatus = " + subStatus);
+
+        return result;
+    }
+
+    @Override
+    public int getSubState(int subId) {
+        int result = 0;
+
+        loge("getSubState: API not supported, subId = " + subId);
+
+        return result;
     }
 
     /**
